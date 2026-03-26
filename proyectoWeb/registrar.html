@@ -1,10 +1,12 @@
 <!doctype html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Registrar Calificación</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
@@ -20,38 +22,44 @@
     <div class="container">
         <div class="container-main">
             <h2 class="page-title">Agregar Nueva Calificación</h2>
-            
+
             <form id="formularioCalificacion">
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="nombre_estudiante" class="form-label">Nombre del Estudiante</label>
-                        <input type="text" class="form-control" id="nombre_estudiante" name="nombre_estudiante" required>
+                        <input type="text" class="form-control" id="nombre_estudiante" name="nombre_estudiante"
+                            required>
                     </div>
                     <div class="col-md-6">
                         <label for="cuatrimestre" class="form-label">Cuatrimestre</label>
-                        <input type="number" class="form-control" id="cuatrimestre" name="cuatrimestre" min="1" required>
+                        <input type="number" class="form-control" id="cuatrimestre" name="cuatrimestre" min="1"
+                            required>
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="notamatematicas" class="form-label">Nota Matemáticas</label>
-                        <input type="number" class="form-control" id="notamatematicas" name="notamatematicas" min="0" max="100" required>
+                        <input type="number" class="form-control" id="notamatematicas" name="notamatematicas" min="0"
+                            max="100" required>
                     </div>
                     <div class="col-md-6">
                         <label for="notaciencias" class="form-label">Nota Ciencias</label>
-                        <input type="number" class="form-control" id="notaciencias" name="notaciencias" min="0" max="100" required>
+                        <input type="number" class="form-control" id="notaciencias" name="notaciencias" min="0"
+                            max="100" required>
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="notaliteratura" class="form-label">Nota Literatura</label>
-                        <input type="number" class="form-control" id="notaliteratura" name="notaliteratura" min="0" max="100" required>
+                        <input type="number" class="form-control" id="notaliteratura" name="notaliteratura" min="0"
+                            max="100" required>
                     </div>
                     <div class="col-md-6">
                         <label for="notacivica" class="form-label">Nota Cívica</label>
-                        <input type="number" class="form-control" id="notacivica" name="notacivica" min="0" max="100" required>
+                        <input type="number" class="form-control" id="notacivica" name="notacivica" min="0" max="100"
+                            required>
                     </div>
                 </div>
 
@@ -76,16 +84,18 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             // Manejar envío del formulario
-            $('#formularioCalificacion').submit(function(e) {
+            $('#formularioCalificacion').submit(function (e) {
                 e.preventDefault();
-                
+
                 // Obtener datos del formulario
-                const datos = {
+                let objetodatos = {
                     nombre_estudiante: $('#nombre_estudiante').val(),
                     cuatrimestre: Number($('#cuatrimestre').val()),
                     notamatematicas: Number($('#notamatematicas').val()),
@@ -94,33 +104,18 @@
                     notacivica: Number($('#notacivica').val()),
                     condicion: $('#condicion').val()
                 };
-                
+
                 // Enviar POST a la API
                 $.ajax({
                     url: 'http://localhost:3000/api/calificaciones',
                     type: 'POST',
                     contentType: 'application/json',
-                    data: JSON.stringify(datos),
-                    success: function(response) {
-                        $('#mensaje').html(`
-                            <div class="alert alert-success" role="alert">
-                                ✅ Calificación registrada correctamente
-                            </div>
-                        `);
-                        
-                        // Limpiar formulario
-                        $('#formularioCalificacion')[0].reset();
-                        
-                        // Redirigir a index después de 2 segundos
-                        setTimeout(function() {
-                            window.location.href = 'index.html';
-                        }, 2000);
-                    },
-                    error: function() {
-                    }
+                    data: JSON.stringify(objetodatos),
+                    success: function (response) {},
                 });
             });
         });
     </script>
 </body>
+
 </html>
