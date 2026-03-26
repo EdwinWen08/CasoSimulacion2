@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calificaciones</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="container-main">
+            <h2 class="page-title"> Lista de Calificaciones</h2>
+                        <div class="mb-3">
+                <a href="registrar.html" class="btn btn-success">Agregar Nueva Calificación</a>
+            </div>
+                        <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Estudiante</th>
+                            <th scope="col">Cuatrimestre</th>
+                            <th scope="col">Matemáticas</th>
+                            <th scope="col">Ciencias</th>
+                            <th scope="col">Literatura</th>
+                            <th scope="col">Cívica</th>
+                            <th scope="col">Condición</th>
+                        </tr>
+                    </thead>
+                    <tbody id="calificacionesTableBody">
+                        <tr>
+                            <td colspan="7" class="text-center text-muted">Cargando datos...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Consumir API de calificaciones
+            $.ajax({
+                url: 'http://localhost:3000/api/calificaciones',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    // Limpiar tabla
+                    $('#calificacionesTableBody').html('');
+                    // Agregar filas a la tabla
+                    $.each(data, function(index, calificacion) {
+                        const fila = `
+                            <tr>
+                                <td>${calificacion.nombre_estudiante}</td>
+                                <td>${calificacion.cuatrimestre}</td>
+                                <td>${calificacion.notamatematicas}</td>
+                                <td>${calificacion.notaciencias}</td>
+                                <td>${calificacion.notaliteratura}</td>
+                                <td>${calificacion.notacivica}</td>
+                                <td>${calificacion.condicion}</td>
+                            </tr>
+                        `;
+                        $('#calificacionesTableBody').append(fila);
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
